@@ -101,8 +101,16 @@ document.addEventListener('DOMContentLoaded', () => {
     mouseY = e.clientY;
   });
 
+  window.addEventListener('mousedown', () => {
+    if (glassLens) glassLens.classList.add('lens-click');
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (glassLens) glassLens.classList.remove('lens-click');
+  });
+
   // Liquid glass hover triggers
-  document.querySelectorAll('a, button, .tilt-card, .editorial-card, .btn, .hotspot-pin, .range-slider').forEach((el) => {
+  document.querySelectorAll('a, button, .tilt-card, .editorial-card, .btn, .hotspot-pin, .range-slider, .divider-milestone-pill').forEach((el) => {
     el.addEventListener('mouseenter', () => {
       isHoveringInteractive = true;
       glassLens.classList.add('lens-expanded');
@@ -142,4 +150,22 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(renderLiquidLens);
   }
   requestAnimationFrame(renderLiquidLens);
+
+  // --- 5. AWWWARDS SCROLL REVEAL OBSERVER ---
+  const revealTargets = document.querySelectorAll('.scroll-reveal, .section-heading-group, .comparison-col, .eco-showroom, .step-node, .arch-card, .kpi-card, .pricing-card, .editorial-card');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  revealTargets.forEach((el) => {
+    el.classList.add('scroll-reveal');
+    revealObserver.observe(el);
+  });
 });
