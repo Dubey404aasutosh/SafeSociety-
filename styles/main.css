@@ -1,0 +1,443 @@
+/* ==========================================================================
+   SAFESOCIETY - EDITORIAL LUXURY DESIGN SYSTEM
+   Warm #EEE8D5 Canvas with Radiant Orange & Soft Pink Accents
+   Monumental Typography & Parallax SVG Line Layers
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  /* Core Base Requested Canvas */
+  --bg-canvas: #EEE8D5;          /* Solarized warm cream base */
+  --bg-surface-soft: #F6F1E1;     /* Soft warm milk tone */
+  --bg-surface-card: rgba(255, 255, 255, 0.9); /* Luminous crisp white card */
+  --bg-surface-elevated: #FFFFFF;
+  --bg-surface-alt: #E6DECA;     /* Deeper warm sand tone */
+
+  /* Vibrant Orange Palette */
+  --orange-500: #FF5A36;        /* Primary radiant orange */
+  --orange-600: #E64724;
+  --orange-400: #FF785A;
+  --orange-100: #FFF1ED;        /* Gentle warm orange wash */
+  --orange-glow: rgba(255, 90, 54, 0.28);
+
+  /* Lightish Pink & Peach Palette */
+  --pink-500: #FF6584;          /* Warm vibrant rose-pink */
+  --pink-400: #FF859F;
+  --pink-200: #FED7E2;          /* Light blush accent */
+  --pink-100: #FFF0F4;          /* Delicate soft pink wash */
+  --pink-border: rgba(255, 101, 132, 0.22);
+  --pink-glow: rgba(255, 101, 132, 0.25);
+
+  /* Deep Warm Ink Typography */
+  --text-ink: #1C1917;          /* Espresso ink */
+  --text-heading: #292524;
+  --text-body: #44403C;
+  --text-secondary: #78716C;
+  --text-muted: #A8A29E;
+
+  /* State Accents */
+  --emerald-safe: #059669;
+  --emerald-soft: #ECFDF5;
+  --rose-alert: #E11D48;
+  --rose-soft: #FFF1F2;
+  --amber-hold: #D97706;
+  --amber-soft: #FFFBEB;
+
+  /* Borders & Dividers */
+  --border-subtle: rgba(74, 53, 39, 0.08);
+  --border-card: rgba(74, 53, 39, 0.11);
+  --border-highlight: rgba(255, 90, 54, 0.35);
+
+  /* Typography Families */
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Sizing & Radius */
+  --container-max: 1280px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 30px;
+  --radius-full: 9999px;
+
+  /* Soft Ambient Shadows */
+  --shadow-subtle: 0 4px 16px -2px rgba(44, 38, 33, 0.05);
+  --shadow-card: 0 12px 36px -8px rgba(74, 53, 39, 0.08), 0 4px 12px -2px rgba(74, 53, 39, 0.03);
+  --shadow-warm-glow: 0 16px 40px -10px rgba(255, 90, 54, 0.22);
+}
+
+/* Base Resets - PURE NATIVE 100% UNCONSTRAINED SCROLLING */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--bg-canvas);
+  color: var(--text-body);
+  scroll-behavior: smooth; /* Native instant smooth scrolling */
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: var(--bg-canvas);
+  color: var(--text-body);
+  line-height: 1.65;
+  position: relative;
+  /* NO resistive scroll - native browser speed */
+}
+
+body.loading-locked {
+  overflow: hidden;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-canvas);
+}
+::-webkit-scrollbar-thumb {
+  background: #D5CBB3;
+  border-radius: 5px;
+  border: 2px solid var(--bg-canvas);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--orange-500);
+}
+
+/* Progress bar at very top */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--orange-500), var(--pink-500));
+  z-index: 10000;
+  box-shadow: 0 0 10px rgba(255, 90, 54, 0.4);
+  transition: width 0.05s ease-out;
+}
+
+/* Global Container */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  position: relative;
+  z-index: 3;
+}
+
+/* ==========================================================================
+   MONUMENTAL CENTERED TYPOGRAPHY & PARALLAX BACKGROUND LAYERS
+   ========================================================================== */
+.monumental-bg-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.monumental-bg-text {
+  font-family: var(--font-sans);
+  font-size: clamp(4.5rem, 15vw, 13.5rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  line-height: 0.85;
+  white-space: nowrap;
+  user-select: none;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 90, 54, 0.14);
+  background: linear-gradient(180deg, rgba(255, 90, 54, 0.09) 0%, rgba(255, 101, 132, 0.04) 100%);
+  -webkit-background-clip: text;
+  will-change: transform;
+}
+
+/* Flowing SVG Contour Lines Beneath Monumental Typography */
+.parallax-svg-mesh {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  min-width: 1200px;
+  height: auto;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+  will-change: transform;
+}
+
+/* Section Pager Transition Indicator */
+.pager-transition-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--orange-600);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.pager-transition-tag::before,
+.pager-transition-tag::after {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--orange-500));
+}
+.pager-transition-tag::after {
+  background: linear-gradient(90deg, var(--orange-500), transparent);
+}
+
+/* Typography Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  color: var(--text-ink);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.gradient-text-warm {
+  background: linear-gradient(135deg, var(--orange-600) 0%, var(--orange-500) 40%, var(--pink-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Section Header Structure */
+.section {
+  padding-top: 110px;
+  padding-bottom: 110px;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.section-heading-group {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 56px auto;
+  position: relative;
+  z-index: 3;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--orange-600);
+  margin-bottom: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(74, 53, 39, 0.03);
+}
+
+.section-tag .pulse-dot {
+  width: 7px;
+  height: 7px;
+  background-color: var(--orange-500);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--orange-500);
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.8); opacity: 0.5; }
+}
+
+.section-title {
+  font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+  margin-bottom: 18px;
+  color: var(--text-ink);
+}
+
+.section-desc {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+/* Editorial Glass & Surface Cards */
+.editorial-card {
+  background: var(--bg-surface-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  z-index: 3;
+}
+
+.editorial-card:hover {
+  box-shadow: 0 18px 45px -10px rgba(74, 53, 39, 0.12), 0 0 24px -6px var(--orange-glow);
+  border-color: rgba(255, 90, 54, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Tactile Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: 0.975rem;
+  font-weight: 600;
+  padding: 13px 26px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--orange-500) 0%, var(--orange-600) 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  box-shadow: 0 4px 18px var(--orange-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(255, 90, 54, 0.45);
+  background: linear-gradient(135deg, var(--orange-400) 0%, var(--orange-500) 100%);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--text-ink);
+  border-color: var(--border-card);
+  box-shadow: var(--shadow-subtle);
+}
+
+.btn-secondary:hover {
+  background: #FFFFFF;
+  border-color: var(--orange-500);
+  color: var(--orange-600);
+  transform: translateY(-2px);
+}
+
+.btn-pink {
+  background: linear-gradient(135deg, var(--pink-500) 0%, #E11D48 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 18px var(--pink-glow);
+}
+
+.btn-pink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(255, 101, 132, 0.45);
+}
+
+.btn-emerald {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(5, 150, 105, 0.25);
+}
+
+.btn-emerald:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(5, 150, 105, 0.35);
+}
+
+/* Layered Divider Waves with Glowing Accent Line */
+.divider-wave-pager {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  position: relative;
+  z-index: 4;
+}
+
+.divider-wave-pager svg {
+  display: block;
+  width: 100%;
+  height: 64px;
+}
+
+/* Back To Top Button */
+.back-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid var(--border-card);
+  color: var(--orange-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 20px rgba(44, 38, 33, 0.12);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--orange-500);
+  color: #FFFFFF;
+  border-color: var(--orange-500);
+  box-shadow: var(--shadow-warm-glow);
+}

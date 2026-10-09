@@ -1,0 +1,89 @@
+/* ==========================================================================
+   SAFESOCIETY - TACTILE MICRO-ANIMATIONS & WARM DYNAMICS
+   ========================================================================== */
+
+/* Subtle breathing glow */
+@keyframes warm-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(0.96);
+    opacity: 0.6;
+  }
+}
+
+/* Mechanical barrier arm rotation */
+@keyframes barrier-lift-light {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-74deg);
+  }
+}
+
+/* Sound wave bars */
+@keyframes sound-bar-motion-1 {
+  0%, 100% { height: 4px; }
+  50% { height: 13px; }
+}
+@keyframes sound-bar-motion-2 {
+  0%, 100% { height: 11px; }
+  50% { height: 5px; }
+}
+@keyframes sound-bar-motion-3 {
+  0%, 100% { height: 6px; }
+  50% { height: 15px; }
+}
+
+/* Alarm pulse for blocked intrusion */
+@keyframes alarm-pulse-light {
+  0%, 100% {
+    background-color: rgba(225, 29, 72, 0.08);
+    border-color: #E11D48;
+    box-shadow: 0 0 16px rgba(225, 29, 72, 0.2);
+  }
+  50% {
+    background-color: rgba(225, 29, 72, 0.18);
+    border-color: #BE123C;
+    box-shadow: 0 0 28px rgba(225, 29, 72, 0.4);
+  }
+}
+
+/* Gentle floating */
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.anim-float {
+  animation: float-subtle 5s ease-in-out infinite;
+}
+
+/* 3D Tactile Card Glare (Subtle warm highlight) */
+.tilt-card {
+  transition: transform 0.15s ease-out, box-shadow 0.25s ease-out;
+  transform-style: preserve-3d;
+}
+
+.tilt-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.65),
+    transparent 50%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 4;
+}
+
+.tilt-card:hover::after {
+  opacity: 1;
+}

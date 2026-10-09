@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SafeSociety — The Residential Security Operating System</title>
+  <meta name="description" content="SafeSociety connects Residents, Security Guards, RWAs, Vehicles, and Physical Gate Automation into an effortless, offline-resilient smart community platform.">
+  <meta name="keywords" content="smart society, gated community security, visitor management, ANPR vehicle recognition, boom barrier automation, society management software">
+  <meta name="theme-color" content="#EEE8D5">
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SafeSociety — The Residential Security Operating System">
+  <meta property="og:description" content="From the gate to the entire community — one connected platform for modern, safer living.">
+  <meta property="og:image" content="assets/images/gate-security.jpg">
+
+  <!-- Google Fonts: Instrument Serif + Plus Jakarta Sans + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/animations.css">
+  <link rel="stylesheet" href="styles/components.css">
+
+  <!-- External Script Libraries (Lucide Icons only - Lenis REMOVED for 100% native smooth scroll) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="loading-locked">
+
+  <!-- Global SVG Gradient Definitions -->
+  <svg width="0" height="0" style="position: absolute;">
+    <defs>
+      <linearGradient id="globalMeshGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FF5A36" stop-opacity="0.38"/>
+        <stop offset="50%" stop-color="#FF6584" stop-opacity="0.28"/>
+        <stop offset="100%" stop-color="#FFA07A" stop-opacity="0.12"/>
+      </linearGradient>
+      <linearGradient id="pagerLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#FF5A36" stop-opacity="0.6"/>
+        <stop offset="50%" stop-color="#FF6584" stop-opacity="0.85"/>
+        <stop offset="100%" stop-color="#FF5A36" stop-opacity="0.3"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+
+  <!-- =========================================================================
+       1. MINIMALIST LUXURY PRELOADER
+       ========================================================================= -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-box">
+      <svg class="preloader-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        <path d="m9 12 2 2 4-4"/>
+      </svg>
+    </div>
+    <div class="preloader-brand">Safe<span>Society</span></div>
+    <div class="preloader-percent" id="preloaderPercent">0%</div>
+    <div class="preloader-progress-wrap">
+      <div class="preloader-progress-bar" id="preloaderBar"></div>
+    </div>
+    <div class="preloader-status" id="preloaderStatus">Connecting to Society Gate Matrix...</div>
+  </div>
+
+  <!-- =========================================================================
+       2. FLOATING EDITORIAL NAVBAR
+       ========================================================================= -->
+  <header class="navbar" id="navbar">
+    <div class="container">
+      <div class="nav-container">
+        <a href="#" class="brand-logo" id="navLogo">
+          <div class="brand-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+          </div>
+          <div class="brand-text">Safe<span>Society</span></div>
+          <span class="nav-live-pill">
+            <span class="nav-live-dot"></span> 42,800+ GATES ACTIVE
+          </span>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <nav>
+          <ul class="nav-menu">
+            <li><a href="#ecosystem" class="nav-link">Ecosystem</a></li>
+            <li><a href="#simulator" class="nav-link">Gate Simulator</a></li>
+            <li><a href="#journey" class="nav-link">Visitor Flow</a></li>
+            <li><a href="#architecture" class="nav-link">Architecture</a></li>
+            <li><a href="#calculator" class="nav-link">ROI Calculator</a></li>
+            <li><a href="#pricing" class="nav-link">Pricing</a></li>
+            <li><a href="#faq" class="nav-link">FAQ</a></li>
+          </ul>
+        </nav>
+
+        <!-- Nav Actions -->
+        <div class="nav-actions">
+          <button class="sound-toggle-btn sound-active" id="audioToggleBtn" title="Toggle Synthesized Audio Feedback">
+            <div class="sound-waves">
+              <span class="sound-bar"></span>
+              <span class="sound-bar"></span>
+              <span class="sound-bar"></span>
+            </div>
+            <span id="audioToggleText">Sound</span>
+          </button>
+
+          <button class="btn btn-primary btn-nav-cta open-audit-modal">
+            Schedule Society Audit
+          </button>
+
+          <button class="mobile-toggle" id="mobileMenuToggle" aria-label="Toggle Menu">
+            <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <ul class="mobile-menu-list">
+      <li><a href="#ecosystem" class="mobile-nav-link">Connected Ecosystem</a></li>
+      <li><a href="#simulator" class="mobile-nav-link">Interactive Gate Simulator</a></li>
+      <li><a href="#journey" class="mobile-nav-link">Visitor Journey Flow</a></li>
+      <li><a href="#architecture" class="mobile-nav-link">Core Architecture</a></li>
+      <li><a href="#calculator" class="mobile-nav-link">Society ROI Calculator</a></li>
+      <li><a href="#pricing" class="mobile-nav-link">Pricing &amp; Plans</a></li>
+      <li><a href="#faq" class="mobile-nav-link">Frequently Asked Questions</a></li>
+    </ul>
+    <button class="btn btn-primary open-audit-modal" style="width: 100%;">Schedule Society Audit</button>
+  </div>
+
+  <main>
+    <!-- =========================================================================
+         3. EDITORIAL HERO SECTION (WITH MONUMENTAL TYPOGRAPHY & PARALLAX SVG MESH)
+         ========================================================================= -->
+    <section class="hero-section" id="hero">
+      <!-- Monumental Centered Background Typography & Parallax SVG Lines -->
+      <div class="monumental-bg-wrap" style="top: 32%;">
+        <svg class="parallax-svg-mesh" data-parallax-speed="0.22" viewBox="0 0 1440 380" fill="none">
+          <path d="M0,110 C240,40 480,210 720,100 C960,-10 1200,190 1440,80" stroke="url(#globalMeshGrad)" stroke-width="2.5" fill="none"/>
+          <path d="M0,150 C240,80 480,250 720,140 C960,30 1200,230 1440,120" stroke="url(#globalMeshGrad)" stroke-width="2" stroke-dasharray="6 6" fill="none"/>
+          <path d="M0,190 C240,120 480,290 720,180 C960,70 1200,270 1440,160" stroke="url(#globalMeshGrad)" stroke-width="1.8" fill="none"/>
+          <path d="M0,230 C240,160 480,330 720,220 C960,110 1200,310 1440,200" stroke="url(#globalMeshGrad)" stroke-width="1.2" stroke-dasharray="4 8" fill="none"/>
+          <circle cx="720" cy="140" r="6" fill="#FF5A36" opacity="0.6"/>
+          <circle cx="240" cy="80" r="4" fill="#FF6584" opacity="0.5"/>
+          <circle cx="1200" cy="230" r="5" fill="#FF5A36" opacity="0.6"/>
+        </svg>
+        <div class="monumental-bg-text" data-parallax-speed="-0.32">SAFESOCIETY</div>
+      </div>
+
+      <canvas class="hero-particle-canvas" id="heroParticleCanvas" style="position: absolute; inset: 0; pointer-events: none; opacity: 0.55; z-index: 1;"></canvas>
+      <div class="container hero-content">
+        <div class="hero-badge anim-float">
+          <span class="nav-live-dot"></span> THE OPERATING SYSTEM FOR MODERN GATED LIVING
+        </div>
+
+        <h1 class="hero-title">
+          The gatekeeper that doesn’t make your community wait.<br>
+          <span class="serif-highlight">Effortless security for 40,000+ homes.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Say goodbye to soggy paper registers, frustrated guards, and endless intercom calls. 
+          SafeSociety connects <strong>residents, security personnel, RWAs, vehicles, and physical boom barriers</strong> into one synchronized, offline-resilient rhythm.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#simulator" class="btn btn-primary">
+            <i data-lucide="play-circle"></i> Try Live Gate Simulator
+          </a>
+          <a href="#calculator" class="btn btn-secondary">
+            <i data-lucide="calculator"></i> Calculate Society Savings
+          </a>
+        </div>
+
+        <!-- Hero Showcase Card with Clean Warm Architectural Frame -->
+        <div class="hero-showcase-wrapper">
+          <!-- Floating Telemetry Widget Left -->
+          <div class="floating-widget floating-widget-left anim-float">
+            <div class="widget-header">
+              <span class="widget-tag">Optical ANPR Feed</span>
+              <span class="widget-status">● VERIFIED</span>
+            </div>
+            <div class="widget-body">Vehicle: DL-08-EV-9021</div>
+            <div class="widget-detail">Dr. Arjun Mehta (Tower B - 904)</div>
+            <div class="widget-detail" style="color: var(--emerald-safe); font-weight: 700; margin-top: 4px;">
+              ✓ BOOM BARRIER LIFTED (2.1s)
+            </div>
+          </div>
+
+          <!-- Floating Telemetry Widget Right -->
+          <div class="floating-widget floating-widget-right anim-float">
+            <div class="widget-header">
+              <span class="widget-tag">Resident 1-Tap Pass</span>
+              <span class="widget-status" style="color: var(--orange-600);">INSTANT PING</span>
+            </div>
+            <div class="widget-body">Amazon Logistics: Delivery Gate 02</div>
+            <div class="widget-detail">QR Guest Pass #8842 Issued</div>
+            <div class="widget-detail" style="color: var(--orange-600); font-weight: 700; margin-top: 4px;">
+              Auto-Expires in 25 mins
+            </div>
+          </div>
+
+          <div class="hero-main-card tilt-card">
+            <img src="assets/images/gate-security.jpg" alt="SafeSociety High-Tech Gate Security Console" loading="eager">
+          </div>
+        </div>
+
+        <!-- Real-world Impact Metrics Bar -->
+        <div class="hero-kpi-bar">
+          <div class="kpi-card tilt-card">
+            <div class="kpi-number">3.2s</div>
+            <div class="kpi-label">Average Gate Verification</div>
+          </div>
+          <div class="kpi-card tilt-card">
+            <div class="kpi-number">99.98%</div>
+            <div class="kpi-label">ANPR Optical Accuracy</div>
+          </div>
+          <div class="kpi-card tilt-card">
+            <div class="kpi-number">100%</div>
+            <div class="kpi-label">Offline Edge Uptime</div>
+          </div>
+          <div class="kpi-card tilt-card">
+            <div class="kpi-number">0 Breaches</div>
+            <div class="kpi-label">Across 42,000+ Society Gates</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION DIVIDER PAGER TRANSITION 1 -->
+    <div class="divider-wave-pager">
+      <svg viewBox="0 0 1440 68" preserveAspectRatio="none">
+        <path d="M0,0 C320,50 720,10 1080,45 C1260,62 1380,25 1440,35 L1440,68 L0,68 Z" fill="#F6F1E1"/>
+        <path d="M0,0 C320,50 720,10 1080,45 C1260,62 1380,25 1440,35" stroke="url(#pagerLineGrad)" stroke-width="2.5" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- =========================================================================
+         4. THE PROBLEM VS SOLUTION (WITH PARALLAX BACKGROUND TEXT & SVG CONTOURS)
+         ========================================================================= -->
+    <section class="section" id="problem-solution" style="background: var(--bg-surface-soft);">
+      <!-- Monumental Centered Background Typography & Parallax SVG Lines -->
+      <div class="monumental-bg-wrap">
+        <svg class="parallax-svg-mesh" data-parallax-speed="0.2" viewBox="0 0 1440 380" fill="none">
+          <path d="M0,80 C360,180 720,-20 1080,160 C1260,240 1380,100 1440,120" stroke="url(#globalMeshGrad)" stroke-width="2.2" fill="none"/>
+          <path d="M0,130 C360,230 720,30 1080,210 C1260,290 1380,150 1440,170" stroke="url(#globalMeshGrad)" stroke-width="1.8" stroke-dasharray="8 6" fill="none"/>
+          <path d="M0,180 C360,280 720,80 1080,260 C1260,340 1380,200 1440,220" stroke="url(#globalMeshGrad)" stroke-width="1.2" fill="none"/>
+        </svg>
+        <div class="monumental-bg-text" data-parallax-speed="-0.26">ZERO FRICTION</div>
+      </div>
+
+      <div class="container">
+        <div class="section-heading-group">
+          <div class="pager-transition-tag">PHASE 01 // RESIDENTIAL REALITY</div>
+          <span class="section-tag"><span class="pulse-dot"></span> PRD SECTION 2 &amp; 3</span>
+          <h2 class="section-title">Yesterday’s Paper Chaos vs. <span class="gradient-text-warm">SafeSociety Protocol</span></h2>
+          <p class="section-desc">
+            Most residential societies still rely on soaked registers, broken intercoms, and frustrated delivery couriers. 
+            Here is how SafeSociety restores order and dignity to the society entrance.
+          </p>
+        </div>
+
+        <div class="comparison-grid">
+          <!-- Traditional Chaos Column -->
+          <div class="comparison-col problem-col tilt-card">
+            <div class="comparison-header">
+              <div class="comp-icon-box comp-icon-problem">
+                <i data-lucide="alert-circle"></i>
+              </div>
+              <div>
+                <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--rose-alert); font-weight: 700; text-transform: uppercase;">The Pain Point</span>
+                <h3>The Fragility of Manual Gates</h3>
+              </div>
+            </div>
+
+            <ul class="comparison-list">
+              <li class="comparison-item">
+                <span class="problem-bullet">✕</span>
+                <div><strong>Manual Paper Registers:</strong> Illegible scribbles, fabricated visitor phone numbers, and untraceable exit timestamps.</div>
+              </li>
+              <li class="comparison-item">
+                <span class="problem-bullet">✕</span>
+                <div><strong>Intercom Phone Tag &amp; Gate Bottlenecks:</strong> Visitors wait 5 to 10 minutes at the boom barrier while guards repeatedly dial busy resident phones.</div>
+              </li>
+              <li class="comparison-item">
+                <span class="problem-bullet">✕</span>
+                <div><strong>Unmonitored Domestic Staff:</strong> Attendance of domestic workers and contractors is tracked on manual ledgers prone to payroll disputes.</div>
+              </li>
+              <li class="comparison-item">
+                <span class="problem-bullet">✕</span>
+                <div><strong>Multi-Tower Blindspots:</strong> Visitors approved for Tower A can wander into Tower C without clearance.</div>
+              </li>
+              <li class="comparison-item">
+                <span class="problem-bullet">✕</span>
+                <div><strong>Internet Outage Paralysis:</strong> When Wi-Fi drops at the gatehouse, cloud-only apps freeze, forcing guards back to pencil and paper.</div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- SafeSociety Solution Column -->
+          <div class="comparison-col solution-col tilt-card">
+            <div class="comparison-header">
+              <div class="comp-icon-box comp-icon-solution">
+                <i data-lucide="shield-check"></i>
+              </div>
+              <div>
+                <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--orange-600); font-weight: 700; text-transform: uppercase;">The SafeSociety Standard</span>
+                <h3>The Connected Society Protocol</h3>
+              </div>
+            </div>
+
+            <ul class="comparison-list">
+              <li class="comparison-item">
+                <span class="solution-bullet">✓</span>
+                <div><strong>Sub-Second Digital Photo Passes:</strong> Photo, contact, visiting unit, and purpose captured in under 8 seconds.</div>
+              </li>
+              <li class="comparison-item">
+                <span class="solution-bullet">✓</span>
+                <div><strong>1-Tap App Approvals &amp; Pre-Invites:</strong> Residents approve arrivals instantly or generate self-expiring VIP guest QR passes.</div>
+              </li>
+              <li class="comparison-item">
+                <span class="solution-bullet">✓</span>
+                <div><strong>Automated ANPR Boom Barriers:</strong> Whitelisted resident cars glide through without rolling down windows; guest plates are logged.</div>
+              </li>
+              <li class="comparison-item">
+                <span class="solution-bullet">✓</span>
+                <div><strong>Tower-Specific Access Routing:</strong> Couriers and visitors are authorized only for their designated tower and wing.</div>
+              </li>
+              <li class="comparison-item">
+                <span class="solution-bullet">✓</span>
+                <div><strong>Offline-First SQLite Edge Cache:</strong> Guards continue full verification even during complete network blackouts.</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION DIVIDER PAGER TRANSITION 2 -->
+    <div class="divider-wave-pager">
+      <svg viewBox="0 0 1440 68" preserveAspectRatio="none">
+        <path d="M0,0 C380,45 740,15 1100,50 C1280,65 1380,20 1440,30 L1440,68 L0,68 Z" fill="#EEE8D5"/>
+        <path d="M0,0 C380,45 740,15 1100,50 C1280,65 1380,20 1440,30" stroke="url(#pagerLineGrad)" stroke-width="2.5" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- =========================================================================
+         5. THREE CONNECTED ECOSYSTEM PORTALS (PRD Section 11)
+         ========================================================================= -->
+    <section class="section" id="ecosystem">
+      <!-- Monumental Centered Background Typography & Parallax SVG Lines -->
+      <div class="monumental-bg-wrap">
+        <svg class="parallax-svg-mesh" data-parallax-speed="0.24" viewBox="0 0 1440 380" fill="none">
+          <path d="M0,140 C280,40 560,240 840,110 C1120,-10 1320,180 1440,90" stroke="url(#globalMeshGrad)" stroke-width="2.2" fill="none"/>
+          <path d="M0,190 C280,90 560,290 840,160 C1120,40 1320,230 1440,140" stroke="url(#globalMeshGrad)" stroke-width="1.8" stroke-dasharray="5 7" fill="none"/>
+          <circle cx="840" cy="110" r="5" fill="#FF5A36" opacity="0.5"/>
+        </svg>
+        <div class="monumental-bg-text" data-parallax-speed="-0.3">ONE GRID</div>
+      </div>
+
+      <div class="container">
+        <div class="section-heading-group">
+          <div class="pager-transition-tag">PHASE 02 // THREE EXPERIENCES</div>
+          <span class="section-tag"><span class="pulse-dot"></span> PRD SECTION 11</span>
+          <h2 class="section-title">Three Tailored Interfaces. <span class="gradient-text-warm">One Unified System.</span></h2>
+          <p class="section-desc">
+            Crafted specifically for residents in their living rooms, security guards at the boom barrier, 
+            and RWA management committees managing multi-tower townships.
+          </p>
+        </div>
+
+        <!-- Ecosystem Tabs Switcher -->
+        <div class="eco-tabs-nav">
+          <button class="eco-tab-btn active" data-target="eco-panel-resident">
+            <i data-lucide="smartphone"></i> Resident App ("My Home, My Control")
+          </button>
+          <button class="eco-tab-btn" data-target="eco-panel-guard">
+            <i data-lucide="shield"></i> Guard Station ("Fast, Respectful Gate Control")
+          </button>
+          <button class="eco-tab-btn" data-target="eco-panel-admin">
+            <i data-lucide="layout-dashboard"></i> Society Admin ("One Master Township View")
+          </button>
+        </div>
+
+        <!-- Panel 1: Resident App -->
+        <div class="eco-panel active" id="eco-panel-resident">
+          <div class="eco-showcase-grid">
+            <div class="eco-showcase-image-box tilt-card">
+              <img src="assets/images/resident-app.jpg" alt="SafeSociety Resident Mobile App">
+              <div class="hotspot-pin" style="top: 36%; left: 58%;">
+                <div class="hotspot-tooltip">1-Tap Photo Approval Engine</div>
+              </div>
+              <div class="hotspot-pin" style="top: 64%; left: 42%;">
+                <div class="hotspot-tooltip">Instant Guest QR Generator</div>
+              </div>
+              <div class="hotspot-pin" style="top: 72%; left: 68%;">
+                <div class="hotspot-tooltip">Real-Time Vehicle Entry Alert</div>
+              </div>
+            </div>
+
+            <div class="eco-feature-list">
+              <div class="eco-feature-card">
+                <div class="eco-feat-header">
+                  <div class="eco-feat-icon"><i data-lucide="user-check"></i></div>
+                  <h3 class="eco-feat-title">1-Tap Visitor &amp; Delivery Approval</h3>
+                </div>
+                <p class="eco-feat-desc">Instant notification with visitor portrait, courier badge, and flat destination. Approve, reject, or speak to the gatehouse with a single tap.</p>
+              </div>
+
+              <div class="eco-feature-card">
+                <div class="eco-feat-header">
+                  <div class="eco-feat-icon"><i data-lucide="qr-code"></i></div>
+                  <h3 class="eco-feat-title">Pre-Invite VIP Guests with Seamless QR</h3>
+                </div>
+                <p class="eco-feat-desc">Send WhatsApp or SMS invites with one-time or recurring QR access passes. Guests scan directly at the gate without waiting for intercom calls.</p>
+              </div>
+
+              <div class="eco-feature-card">
+                <div class="eco-feat-header">
+                  <div class="eco-feat-icon"><i data-lucide="users"></i></div>
+                  <h3 class="eco-feat-title">Domestic Staff Attendance &amp; Ledger</h3>
+                </div>
+                <p class="eco-feat-desc">Receive notifications when your cook, maid, or driver enters the society. Review monthly attendance logs, calculate wages, and rate service quality.</p>
+              </div>
+
+              <div class="eco-feature-card">
+                <div class="eco-feat-header">
+                  <div class="eco-feat-icon"><i data-lucide="car"></i></div>
+                  <h3 class="eco-feat-title">Real-Time Vehicle Entry Snapshots</h3>
+                </div>
+                <p class="eco-feat-desc">Receive optical gate snapshots whenever your registered car enters or leaves the gates, giving peace of mind even when you are traveling abroad.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2: Guard Station App -->
+        <div class="eco-panel" id="eco-panel-guard">
+          <div class="eco-showcase-grid">
+            <div class="eco-showcase-image-box tilt-card">
+              <img src="assets/images/gate-security.jpg" alt="SafeSociety Guard Station Tablet Interface">
+              <div class="hotspot-pin" style="top: 38%; left: 62%;">
+                <div class="hotspot-tooltip">Sub-Second Optical OCR Plate Reader</div>
+              </div>
+              <div class="hotspot-pin" style="top: 55%; left: 32%;">
+                <div class="hotspot-tooltip">High-Contrast Guard Terminal</div>
+              </div>
+            </div>
+
+            <div class="eco-feature-list">
+              <div class="eco-feature-card">
+                <div class="eco-feat-header">
+                  <div class="eco-feat-icon"><i data-lucide="scan-line"></i></div>
+                  <h3 class="eco-feat-title">High-Velocity 2-Second Verification</h3>
+                </div>
+                <p class="eco-feat-desc">Designed with high-contrast oversized touch controls so guards can register walk-in visitors and delivery couriers in under two seconds.</p>
+              </div>
+
+              <div class="eco-feature-card">
+                <div class="eco-feat-header">
+                  <div class="eco-feat-icon"><i data-lucide="wifi-off"></i></div>
+                  <h3 class="eco-feat-title">Zero-Downtime Offline Edge Cache</h3>
+                </div>
+                <p class="eco-feat-desc">When society Wi-Fi or cellular drops, local SQLite cache maintains full offline validation of resident vehicles and authorized staff.</p>
+              </div>
+
+              <div class="eco-feature-card">
+                <div class="eco-feat-header">
+                  <div class="eco-feat-icon"><i data-lucide="shield-alert"></i></div>
+                  <h3 class="eco-feat-title">Instant Blacklist &amp; Intrusion Lockdown</h3>
+                </div>
+                <p class="eco-feat-desc">Flaggable license plates and unauthorized tailgaters trigger prominent visual &amp; audio alarms on the guard terminal with 1-touch gate lockdown.</p>
+              </div>
+
+              <div class="eco-feature-card">
+                <div class="eco-feat-header">
+                  <div class="eco-feat-icon"><i data-lucide="repeat"></i></div>
+                  <h3 class="eco-feat-title">Multi-Gate Cross Handover Protocol</h3>
+                </div>
+                <p class="eco-feat-desc">Guards at Gate 1, Gate 2, and Tower lobbies stay synchronized, tracking exact vehicular and pedestrian routes across township premises.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 3: Society Admin Command -->
+        <div class="eco-panel" id="eco-panel-admin">
+          <div class="eco-showcase-grid">
+            <div class="eco-showcase-image-box tilt-card">
+              <img src="assets/images/command-center.jpg" alt="SafeSociety Enterprise Command Center Dashboard">
+              <div class="hotspot-pin" style="top: 40%; left: 48%;">
+                <div class="hotspot-tooltip">3D Digital Twin Township Mapping</div>
+              </div>
+              <div class="hotspot-pin" style="top: 25%; left: 20%;">
+                <div class="hotspot-tooltip">Live Optical CCTV Matrix Feeds</div>
+              </div>
+              <div class="hotspot-pin" style="top: 60%; left: 78%;">
+                <div class="hotspot-tooltip">AI Anomaly &amp; Loitering Sentinel</div>
+              </div>
+            </div>
+
+            <div class="eco-feature-list">
+              <div class="eco-feature-card">
+                <div class="eco-feat-header">
+                  <div class="eco-feat-icon"><i data-lucide="activity"></i></div>
+                  <h3 class="eco-feat-title">3D Digital Twin &amp; Traffic Analytics</h3>
+                </div>
+                <p class="eco-feat-desc">Visualize gate throughput, peak visitor influx hours, delivery vehicular density, and parking occupancy across every tower and wing in real time.</p>
+              </div>
+
+              <div class="eco-feature-card">
+                <div class="eco-feat-header">
+                  <div class="eco-feat-icon"><i data-lucide="bot"></i></div>
+                  <h3 class="eco-feat-title">AI Natural Language Security Assistant</h3>
+                </div>
+                <p class="eco-feat-desc">Query your society database in plain English: "Show all delivery vehicles on premises past 45 minutes" or "List unauthorized gate attempts after 1 AM."</p>
+              </div>
+
+              <div class="eco-feature-card">
+                <div class="eco-feat-header">
+                  <div class="eco-feat-icon"><i data-lucide="file-text"></i></div>
+                  <h3 class="eco-feat-title">Forensic Incident Investigation Logs</h3>
+                </div>
+                <p class="eco-feat-desc">Search multi-camera timestamps, license plate numbers, and visitor approval records to resolve incidents in minutes rather than days.</p>
+              </div>
+
+              <div class="eco-feature-card">
+                <div class="eco-feat-header">
+                  <div class="eco-feat-icon"><i data-lucide="bell"></i></div>
+                  <h3 class="eco-feat-title">Emergency Broadcast &amp; Maintenance Notices</h3>
+                </div>
+                <p class="eco-feat-desc">Publish society-wide notices, trigger emergency evacuation alerts, automate maintenance fee collection, and track resident feedback seamlessly.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION DIVIDER PAGER TRANSITION 3 -->
+    <div class="divider-wave-pager">
+      <svg viewBox="0 0 1440 68" preserveAspectRatio="none">
+        <path d="M0,0 C320,55 760,15 1120,48 C1280,62 1380,20 1440,30 L1440,68 L0,68 Z" fill="#F6F1E1"/>
+        <path d="M0,0 C320,55 760,15 1120,48 C1280,62 1380,20 1440,30" stroke="url(#pagerLineGrad)" stroke-width="2.5" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- =========================================================================
+         6. VISITOR JOURNEY FLOW (PRD Section 3)
+         ========================================================================= -->
+    <section class="section" id="journey" style="background: var(--bg-surface-soft);">
+      <!-- Monumental Centered Background Typography & Parallax SVG Lines -->
+      <div class="monumental-bg-wrap">
+        <svg class="parallax-svg-mesh" data-parallax-speed="0.22" viewBox="0 0 1440 380" fill="none">
+          <path d="M0,100 C340,20 680,220 1020,90 C1200,20 1360,180 1440,110" stroke="url(#globalMeshGrad)" stroke-width="2" fill="none"/>
+          <path d="M0,150 C340,70 680,270 1020,140 C1200,70 1360,230 1440,160" stroke="url(#globalMeshGrad)" stroke-width="1.6" stroke-dasharray="6 6" fill="none"/>
+        </svg>
+        <div class="monumental-bg-text" data-parallax-speed="-0.26">JOURNEY</div>
+      </div>
+
+      <div class="container">
+        <div class="section-heading-group">
+          <div class="pager-transition-tag">PHASE 03 // LIVE VISITOR PIPELINE</div>
+          <span class="section-tag"><span class="pulse-dot"></span> PRD SECTION 3 SPECIFICATION</span>
+          <h2 class="section-title">The Complete Visitor Journey: <span class="gradient-text-warm">Arrival to Exit</span></h2>
+          <p class="section-desc">
+            Test the seamless four-stage verification pipeline directly in this interactive simulator. 
+            Experience how a guest is welcomed, validated, and logged with zero friction.
+          </p>
+        </div>
+
+        <!-- Step Navigation Stepper -->
+        <div class="journey-stepper-nav">
+          <button class="journey-step-btn active" data-step="1">
+            <span>01</span> Arrival at Gate
+          </button>
+          <button class="journey-step-btn" data-step="2">
+            <span>02</span> Resident Alert
+          </button>
+          <button class="journey-step-btn" data-step="3">
+            <span>03</span> Decision Engine
+          </button>
+          <button class="journey-step-btn" data-step="4">
+            <span>04</span> Auto-Pass &amp; Exit
+          </button>
+        </div>
+
+        <div class="journey-card-display">
+          <!-- Step 1 Card -->
+          <div class="journey-flow-card active" id="journeyCard1">
+            <div class="journey-card-head">
+              <div>
+                <span class="sim-badge badge-cyan">STAGE 01 — PHYSICAL GATE</span>
+                <h3 style="margin-top: 6px;">Visitor Arrives at Society Entrance</h3>
+              </div>
+              <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary);">
+                Gate 01 • Main Entrance
+              </div>
+            </div>
+
+            <div class="visitor-profile-row">
+              <div class="visitor-avatar">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" alt="Mark Jensen Visitor">
+              </div>
+              <div class="visitor-info">
+                <h4>Mark Jensen</h4>
+                <p>Courier / Logistics • Amazon Package Delivery</p>
+                <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--orange-600); margin-top: 2px; font-weight: 600;">
+                  Destination: Tower A — Flat 402 (Priya Sharma)
+                </p>
+              </div>
+            </div>
+
+            <p style="color: var(--text-body); font-size: 0.95rem; line-height: 1.6; margin-bottom: 22px;">
+              The security guard initiates quick registration on the Guard Tablet. The optical camera captures the visitor's portrait 
+              and delivery parcel details in under 3 seconds. The system immediately routes an instant high-priority push to Flat 402.
+            </p>
+
+            <button class="btn btn-primary journey-step-btn" data-step="2" style="width: auto;">
+              Advance to Resident Alert <i data-lucide="arrow-right"></i>
+            </button>
+          </div>
+
+          <!-- Step 2 Card -->
+          <div class="journey-flow-card" id="journeyCard2">
+            <div class="journey-card-head">
+              <div>
+                <span class="sim-badge badge-emerald">STAGE 02 — RESIDENT PUSH</span>
+                <h3 style="margin-top: 6px;">Resident Receives Instant Notification</h3>
+              </div>
+              <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary);">
+                Flat 402 Smartphone
+              </div>
+            </div>
+
+            <div style="padding: 18px; background: var(--bg-surface-soft); border-radius: var(--radius-md); border: 1px solid var(--border-card); margin-bottom: 22px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--orange-600); font-weight: 700;">
+                  SAFESOCIETY RESIDENT OS
+                </span>
+                <span style="font-size: 0.75rem; color: var(--text-secondary);">Just now</span>
+              </div>
+              <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-ink); margin-bottom: 4px;">
+                Visitor Arrival: Mark Jensen (Amazon Delivery)
+              </div>
+              <div style="font-size: 0.88rem; color: var(--text-body);">
+                At Main Gate 01 requesting access for Tower A — Flat 402. Photo verified by Gate Camera 04.
+              </div>
+            </div>
+
+            <button class="btn btn-primary journey-step-btn" data-step="3" style="width: auto;">
+              Proceed to Decision Engine <i data-lucide="arrow-right"></i>
+            </button>
+          </div>
+
+          <!-- Step 3 Card -->
+          <div class="journey-flow-card" id="journeyCard3">
+            <div class="journey-card-head">
+              <div>
+                <span class="sim-badge badge-amber">STAGE 03 — INTERACTIVE DECISION</span>
+                <h3 style="margin-top: 6px;">Resident Makes Instant Decision</h3>
+              </div>
+              <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary);">
+                Interactive Sandbox
+              </div>
+            </div>
+
+            <p style="color: var(--text-body); margin-bottom: 18px;">
+              Click one of the actions below to simulate the resident's response:
+            </p>
+
+            <div class="journey-interactive-decision">
+              <button class="btn btn-emerald" id="journeyBtnApprove">
+                <i data-lucide="check"></i> 1-Tap Approve Access
+              </button>
+              <button class="btn btn-secondary" id="journeyBtnDeny" style="border-color: var(--rose-alert); color: var(--rose-alert);">
+                <i data-lucide="x"></i> Deny Entry
+              </button>
+              <button class="btn btn-secondary" onclick="alert('Simulated intercom call placed to Gatehouse Guard.');">
+                <i data-lucide="phone"></i> Intercom Guard Call
+              </button>
+            </div>
+
+            <div id="journeyDecisionStatus"></div>
+          </div>
+
+          <!-- Step 4 Card -->
+          <div class="journey-flow-card" id="journeyCard4">
+            <div class="journey-card-head">
+              <div>
+                <span class="sim-badge badge-emerald">STAGE 04 — PASS &amp; AUDIT LOG</span>
+                <h3 style="margin-top: 6px;">Digital Pass Active &amp; Exit Recording</h3>
+              </div>
+              <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--emerald-safe); font-weight: 700;">
+                ✓ COMPLETED FLOW
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 22px;">
+              <div style="padding: 16px; background: var(--bg-surface-soft); border-radius: var(--radius-md); border: 1px solid var(--border-card);">
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--orange-600); font-weight: 700;">TEMPORARY PASS #8842</span>
+                <div style="font-size: 1rem; font-weight: 700; color: var(--text-ink); margin-top: 4px;">Tower A Access Granted</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px;">Valid for: 30 minutes • Boom Barrier 01 Opened</div>
+              </div>
+              <div style="padding: 16px; background: var(--bg-surface-soft); border-radius: var(--radius-md); border: 1px solid var(--border-card);">
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--emerald-safe); font-weight: 700;">EXIT SENSOR STATUS</span>
+                <div style="font-size: 1rem; font-weight: 700; color: var(--text-ink); margin-top: 4px;">Departure Logged Automatically</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px;">Exit recorded at Gate 02 • History archived</div>
+              </div>
+            </div>
+
+            <button class="btn btn-secondary journey-step-btn" data-step="1" style="width: auto;">
+              <i data-lucide="rotate-ccw"></i> Restart Journey Simulation
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION DIVIDER PAGER TRANSITION 4 -->
+    <div class="divider-wave-pager">
+      <svg viewBox="0 0 1440 68" preserveAspectRatio="none">
+        <path d="M0,0 C360,40 780,10 1140,50 C1280,65 1380,20 1440,30 L1440,68 L0,68 Z" fill="#EEE8D5"/>
+        <path d="M0,0 C360,40 780,10 1140,50 C1280,65 1380,20 1440,30" stroke="url(#pagerLineGrad)" stroke-width="2.5" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- =========================================================================
+         7. TACTILE GATE TERMINAL SANDBOX (WITH MONUMENTAL TYPOGRAPHY & SVG MESH)
+         ========================================================================= -->
+    <section class="section" id="simulator">
+      <!-- Monumental Centered Background Typography & Parallax SVG Lines -->
+      <div class="monumental-bg-wrap">
+        <svg class="parallax-svg-mesh" data-parallax-speed="0.25" viewBox="0 0 1440 380" fill="none">
+          <path d="M0,130 C300,30 600,230 900,100 C1200,-30 1360,160 1440,90" stroke="url(#globalMeshGrad)" stroke-width="2.4" fill="none"/>
+          <path d="M0,170 C300,70 600,270 900,140 C1200,10 1360,200 1440,130" stroke="url(#globalMeshGrad)" stroke-width="1.6" stroke-dasharray="6 6" fill="none"/>
+        </svg>
+        <div class="monumental-bg-text" data-parallax-speed="-0.28">SMART GATE</div>
+      </div>
+
+      <div class="container">
+        <div class="section-heading-group">
+          <div class="pager-transition-tag">PHASE 04 // HARDWARE TERMINAL</div>
+          <span class="section-tag"><span class="pulse-dot"></span> LIVE ANPR &amp; BOOM BARRIER SANDBOX</span>
+          <h2 class="section-title">Test The Smart Gate <span class="gradient-text-warm">Hardware Terminal</span></h2>
+          <p class="section-desc">
+            Experience how SafeSociety identifies vehicles in sub-second time, queries resident permissions, 
+            and commands physical boom barriers to lift. Try preset plates or type any custom number.
+          </p>
+        </div>
+
+        <!-- Interactive Offline Resilience Toggle (PRD Section 10) -->
+        <div class="offline-banner-box">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+              <i data-lucide="wifi" style="width: 20px; height: 20px; color: var(--orange-500);"></i>
+              <strong style="font-size: 1.05rem; color: var(--text-ink);">Offline-First Zero-Downtime Engine</strong>
+              <span class="sim-badge badge-emerald" id="wifiStatusBadge">● CLOUD SYNC ONLINE</span>
+            </div>
+            <p id="wifiStatusDesc" style="font-size: 0.88rem; color: var(--text-secondary); margin: 0;">
+              All gates operating on high-speed cloud synchronization. Toggle to simulate an internet blackout.
+            </p>
+          </div>
+          <div class="offline-toggle-wrap">
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-ink);">Simulate Society Wi-Fi Outage:</span>
+            <label class="pricing-switch">
+              <input type="checkbox" id="offlineSimToggle" checked>
+              <span class="pricing-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="gate-sim-grid">
+          <!-- Terminal Control Left -->
+          <div class="terminal-panel tilt-card">
+            <div class="terminal-header">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="nav-live-dot"></span>
+                <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--orange-600); font-weight: 700;">GATE 01 OPTICAL TERMINAL</span>
+              </div>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary);">ANPR v3.4 ONLINE</span>
+            </div>
+
+            <label class="form-label" for="simPlateInput">License Plate / Vehicle ID:</label>
+            <div class="terminal-input-wrap">
+              <input type="text" class="terminal-input" id="simPlateInput" value="AZURE-7" placeholder="e.g. AZURE-7 or DL-08-EV-9021">
+              <button class="btn btn-primary" id="simScanBtn" style="padding: 12px 22px;">Scan Plate</button>
+            </div>
+
+            <!-- Plate Presets -->
+            <div class="plate-presets">
+              <span style="font-size: 0.75rem; color: var(--text-secondary); align-self: center; font-weight: 600;">Presets:</span>
+              <button class="plate-preset-btn" data-plate="AZURE-7">Resident VIP (Azure-7)</button>
+              <button class="plate-preset-btn" data-plate="DL-08-EV-9021">Resident EV (DL-08)</button>
+              <button class="plate-preset-btn" data-plate="MH-02-AMZ-441">Amazon Courier Van</button>
+              <button class="plate-preset-btn" data-plate="HR-26-FLAG-999" style="border-color: rgba(225, 29, 72, 0.4); color: var(--rose-alert);">Flagged Intruder</button>
+            </div>
+
+            <!-- Simulated Mechanical Boom Barrier Graphic -->
+            <div class="barrier-graphic-box">
+              <div class="barrier-status-badge barrier-status-ready" id="simBarrierStatus">
+                BARRIER CLOSED • ARMED
+              </div>
+              <div class="barrier-pillar">
+                <div class="barrier-pillar-beacon"></div>
+              </div>
+              <div class="barrier-arm" id="simBarrierArm"></div>
+            </div>
+          </div>
+
+          <!-- Terminal Telemetry Right -->
+          <div class="terminal-panel tilt-card">
+            <div class="terminal-header">
+              <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-ink); font-weight: 700;">ANPR OCR TELEMETRY &amp; AUDIT</span>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--emerald-safe); font-weight: 700;">LATENCY: 18ms</span>
+            </div>
+
+            <div class="sim-result-container" id="simResultBox">
+              <div class="result-card">
+                <div class="result-header">
+                  <span class="sim-badge badge-emerald">RESIDENT</span>
+                  <span class="sim-gate-tag">Gate 01 (Resident Primary)</span>
+                </div>
+                <div class="result-body">
+                  <div class="result-title">Dr. Arjun Mehta</div>
+                  <div class="result-meta">
+                    <div><i data-lucide="home"></i> <strong>Location:</strong> Tower B - Flat 904</div>
+                    <div><i data-lucide="car"></i> <strong>Vehicle:</strong> Tesla Model S (AZURE-7)</div>
+                    <div><i data-lucide="shield-check"></i> <strong>Status:</strong> AUTHORIZED RESIDENT WHITELIST</div>
+                  </div>
+                </div>
+                <div class="result-action-bar">
+                  <span class="action-tag">Barrier Auto-Lift Initiated</span>
+                  <span class="timestamp">Live</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live Log Feed -->
+            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-secondary); margin-bottom: 6px; text-transform: uppercase; font-weight: 600;">
+              Real-Time Gate Telemetry Log:
+            </div>
+            <div class="terminal-logs" id="simLogFeed">
+              <div class="sim-log-item log-emerald">
+                <span class="log-time">[18:04:15]</span> <span class="log-msg">ANPR Match: AZURE-7 verified. Tower B whitelist active. Barrier lift triggered.</span>
+              </div>
+              <div class="sim-log-item log-cyan">
+                <span class="log-time">[18:01:22]</span> <span class="log-msg">Visitor entry logged at Gate 02: Courier permit for Flat 301.</span>
+              </div>
+              <div class="sim-log-item log-emerald">
+                <span class="log-time">[17:58:04]</span> <span class="log-msg">Resident Exit: DL-08-EV-9021 cleared through Gate 01.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION DIVIDER PAGER TRANSITION 5 -->
+    <div class="divider-wave-pager">
+      <svg viewBox="0 0 1440 68" preserveAspectRatio="none">
+        <path d="M0,0 C340,48 760,18 1120,52 C1260,65 1380,22 1440,32 L1440,68 L0,68 Z" fill="#F6F1E1"/>
+        <path d="M0,0 C340,48 760,18 1120,52 C1260,65 1380,22 1440,32" stroke="url(#pagerLineGrad)" stroke-width="2.5" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- =========================================================================
+         8. DEEP ARCHITECTURE CAPABILITIES (WITH MONUMENTAL TYPOGRAPHY & SVG MESH)
+         ========================================================================= -->
+    <section class="section" id="architecture" style="background: var(--bg-surface-soft);">
+      <!-- Monumental Centered Background Typography & Parallax SVG Lines -->
+      <div class="monumental-bg-wrap">
+        <svg class="parallax-svg-mesh" data-parallax-speed="0.2" viewBox="0 0 1440 380" fill="none">
+          <path d="M0,120 C320,20 640,240 960,80 C1200,-20 1360,170 1440,100" stroke="url(#globalMeshGrad)" stroke-width="2.2" fill="none"/>
+          <path d="M0,170 C320,70 640,290 960,130 C1200,30 1360,220 1440,150" stroke="url(#globalMeshGrad)" stroke-width="1.6" stroke-dasharray="5 7" fill="none"/>
+        </svg>
+        <div class="monumental-bg-text" data-parallax-speed="-0.28">FORTRESS OS</div>
+      </div>
+
+      <div class="container">
+        <div class="section-heading-group">
+          <div class="pager-transition-tag">PHASE 05 // SYSTEM ARCHITECTURE</div>
+          <span class="section-tag"><span class="pulse-dot"></span> PRD SECTIONS 5–10 &amp; 13</span>
+          <h2 class="section-title">Engineered Beyond Simple Visitor Apps. <span class="gradient-text-warm">A Complete Community OS.</span></h2>
+          <p class="section-desc">
+            Discover the high-availability security architecture designed to operate multi-gate complexes, 
+            high-rise towers, and physical gate automation without a single point of failure.
+          </p>
+        </div>
+
+        <div class="arch-grid">
+          <!-- Card 1: Smart Gate Evolution -->
+          <div class="arch-card tilt-card">
+            <div class="arch-card-icon"><i data-lucide="scan"></i></div>
+            <h3>Contextual Gate Security</h3>
+            <p>Evolving past simple guest questions to full contextual verification: Who is entering, why, which gate, which specific tower, and are they authorized right now?</p>
+            <div class="arch-pill-list">
+              <span class="arch-pill">Contextual Logic</span>
+              <span class="arch-pill">Sub-Second Processing</span>
+              <span class="arch-pill">Gate Permission Matrix</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Multi-Gate & Tower Routing -->
+          <div class="arch-card tilt-card">
+            <div class="arch-card-icon"><i data-lucide="building-2"></i></div>
+            <h3>Multi-Gate &amp; Tower Rules</h3>
+            <p>Granular rule enforcement: Service deliveries must enter through Service Gates; Tower A guests cannot cross into Tower B wings without separate clearance.</p>
+            <div class="arch-pill-list">
+              <span class="arch-pill">Tower Isolation</span>
+              <span class="arch-pill">Service Gate Routing</span>
+              <span class="arch-pill">Emergency Gate Bypass</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Computer Vision & ANPR -->
+          <div class="arch-card tilt-card">
+            <div class="arch-card-icon"><i data-lucide="camera"></i></div>
+            <h3>Optical ANPR &amp; Vehicle AI</h3>
+            <p>Smart camera recognition instantly verifies registered cars, flags unauthorized plates, detects tailgaters, and logs full high-res vehicle entry snapshots.</p>
+            <div class="arch-pill-list">
+              <span class="arch-pill">99.8% OCR Accuracy</span>
+              <span class="arch-pill">Blacklist Lockdown</span>
+              <span class="arch-pill">Night Vision Infrared</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Physical Boom Barrier Automation -->
+          <div class="arch-card tilt-card">
+            <div class="arch-card-icon"><i data-lucide="cpu"></i></div>
+            <h3>Identify → Verify → Open</h3>
+            <p>Direct hardware relay controller for physical boom barriers, turnstiles, and RFID gates. Replaces simple proximity sensors with intelligent policy verification.</p>
+            <div class="arch-pill-list">
+              <span class="arch-pill">IoT Relay Controller</span>
+              <span class="arch-pill">Anti-Crash Safety</span>
+              <span class="arch-pill">Manual Guard Override</span>
+            </div>
+          </div>
+
+          <!-- Card 5: Offline-First Zero Downtime -->
+          <div class="arch-card tilt-card">
+            <div class="arch-card-icon"><i data-lucide="database"></i></div>
+            <h3>Offline Security Mesh</h3>
+            <p>Guards never lose functionality when internet drops. Local SQLite database handles validation and silently reconciles with cloud once connectivity returns.</p>
+            <div class="arch-pill-list">
+              <span class="arch-pill">Local Edge Cache</span>
+              <span class="arch-pill">Bi-directional Sync</span>
+              <span class="arch-pill">Zero Gate Freezes</span>
+            </div>
+          </div>
+
+          <!-- Card 6: AI Security Assistant -->
+          <div class="arch-card tilt-card">
+            <div class="arch-card-icon"><i data-lucide="sparkles"></i></div>
+            <h3>AI Security Assistant</h3>
+            <p>Natural language analytics for RWA management: "Show unusual midnight entries this week" or "Which gate had highest traffic between 5 PM and 8 PM?"</p>
+            <div class="arch-pill-list">
+              <span class="arch-pill">Natural Language Query</span>
+              <span class="arch-pill">Anomaly Detection</span>
+              <span class="arch-pill">Audit Surface</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION DIVIDER PAGER TRANSITION 6 -->
+    <div class="divider-wave-pager">
+      <svg viewBox="0 0 1440 68" preserveAspectRatio="none">
+        <path d="M0,0 C380,45 740,15 1100,50 C1280,65 1380,20 1440,30 L1440,68 L0,68 Z" fill="#EEE8D5"/>
+        <path d="M0,0 C380,45 740,15 1100,50 C1280,65 1380,20 1440,30" stroke="url(#pagerLineGrad)" stroke-width="2.5" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- =========================================================================
+         9. SOCIETY ROI & STAKEHOLDER IMPACT CALCULATOR (WITH MONUMENTAL TYPOGRAPHY)
+         ========================================================================= -->
+    <section class="section" id="calculator">
+      <!-- Monumental Centered Background Typography & Parallax SVG Lines -->
+      <div class="monumental-bg-wrap">
+        <svg class="parallax-svg-mesh" data-parallax-speed="0.22" viewBox="0 0 1440 380" fill="none">
+          <path d="M0,110 C280,210 640,30 980,180 C1180,260 1340,120 1440,140" stroke="url(#globalMeshGrad)" stroke-width="2.2" fill="none"/>
+          <path d="M0,160 C280,260 640,80 980,230 C1180,310 1340,170 1440,190" stroke="url(#globalMeshGrad)" stroke-width="1.6" stroke-dasharray="6 6" fill="none"/>
+        </svg>
+        <div class="monumental-bg-text" data-parallax-speed="-0.26">42,000+ GATES</div>
+      </div>
+
+      <div class="container">
+        <div class="section-heading-group">
+          <div class="pager-transition-tag">PHASE 06 // RETURN ON INVESTMENT</div>
+          <span class="section-tag"><span class="pulse-dot"></span> PRD SECTION 12 BUSINESS VALUE</span>
+          <h2 class="section-title">Interactive Society <span class="gradient-text-warm">ROI &amp; Efficiency Calculator</span></h2>
+          <p class="section-desc">
+            Adjust the sliders below to see the tangible monthly hours saved, wait-time reductions, 
+            and cost savings SafeSociety delivers for your specific community size.
+          </p>
+        </div>
+
+        <div class="calculator-box tilt-card">
+          <!-- Sliders Grid -->
+          <div class="calc-sliders-grid">
+            <div class="slider-group">
+              <div class="slider-header">
+                <span class="slider-label">Residential Units / Flats:</span>
+                <span class="slider-value" id="calcFlatsVal">450</span>
+              </div>
+              <input type="range" class="range-slider" id="calcFlats" min="50" max="3000" step="25" value="450">
+              <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-secondary);">
+                <span>50 Flats</span>
+                <span>3,000 Flats</span>
+              </div>
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-header">
+                <span class="slider-label">Active Society Gates:</span>
+                <span class="slider-value" id="calcGatesVal">3</span>
+              </div>
+              <input type="range" class="range-slider" id="calcGates" min="1" max="10" step="1" value="3">
+              <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-secondary);">
+                <span>1 Gate</span>
+                <span>10 Gates</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Output Metrics Grid -->
+          <div class="calc-metrics-grid">
+            <div class="calc-metric-card">
+              <div class="calc-metric-val" id="metricHoursSaved">668 hrs/mo</div>
+              <div class="calc-metric-label">Guard &amp; Resident Time Saved</div>
+            </div>
+            <div class="calc-metric-card">
+              <div class="calc-metric-val" id="metricWaitCut">95.4%</div>
+              <div class="calc-metric-label">Gate Wait Time Cut</div>
+            </div>
+            <div class="calc-metric-card">
+              <div class="calc-metric-val" id="metricAnnualSavings">$14,729 / ₹12.2L</div>
+              <div class="calc-metric-label">Annual RWA Cost Savings</div>
+            </div>
+            <div class="calc-metric-card">
+              <div class="calc-metric-val" id="metricIncidentsPrevented">567 alerts/yr</div>
+              <div class="calc-metric-label">Security Anomalies Caught</div>
+            </div>
+          </div>
+
+          <!-- Stakeholder Perspectives Switcher -->
+          <div class="stakeholder-tabs">
+            <button class="stakeholder-tab-btn active" data-role="residents">Residents Perspective</button>
+            <button class="stakeholder-tab-btn" data-role="guards">Guards Perspective</button>
+            <button class="stakeholder-tab-btn" data-role="rwa">RWA &amp; Management Perspective</button>
+          </div>
+
+          <div class="stakeholder-panel active" id="stakeholder-residents">
+            <strong>Key Benefit for Residents:</strong> No more interruptions from couriers knocking when you are in meetings. Pre-approved guest QR codes mean your family and friends glide through the gate without embarrassing intercom interrogation delays. Instant maid attendance alerts prevent domestic payroll disputes.
+          </div>
+
+          <div class="stakeholder-panel" id="stakeholder-guards">
+            <strong>Key Benefit for Guards:</strong> 100% elimination of handwritten registers that tear and get wet. The tablet scanner processes visitors in 2 seconds flat, eliminating arguments with angry drivers. Instant panic broadcast empowers guards during suspicious confrontations.
+          </div>
+
+          <div class="stakeholder-panel" id="stakeholder-rwa">
+            <strong>Key Benefit for Society RWAs:</strong> Complete legal and security accountability. Full digital audit trail of every entry and exit. Automated society maintenance fee collections and single-dashboard oversight of multi-tower facilities with zero paperwork leakage.
+          </div>
+        </div>
+
+        <!-- Security & Compliance Badges -->
+        <div class="compliance-bar">
+          <div class="compliance-badge">
+            <div class="compliance-icon"><i data-lucide="lock"></i></div>
+            <div class="compliance-text">
+              <h4>End-to-End Encrypted</h4>
+              <p>AES-256 GCM Data Encryption</p>
+            </div>
+          </div>
+          <div class="compliance-badge">
+            <div class="compliance-icon"><i data-lucide="file-check"></i></div>
+            <div class="compliance-text">
+              <h4>DPDP &amp; GDPR Compliant</h4>
+              <p>Resident PII Masking Built-in</p>
+            </div>
+          </div>
+          <div class="compliance-badge">
+            <div class="compliance-icon"><i data-lucide="server"></i></div>
+            <div class="compliance-text">
+              <h4>99.99% Edge Uptime SLA</h4>
+              <p>Multi-Region High Availability</p>
+            </div>
+          </div>
+          <div class="compliance-badge">
+            <div class="compliance-icon"><i data-lucide="award"></i></div>
+            <div class="compliance-text">
+              <h4>ISO 27001 Certified</h4>
+              <p>Enterprise Security Standards</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION DIVIDER PAGER TRANSITION 7 -->
+    <div class="divider-wave-pager">
+      <svg viewBox="0 0 1440 68" preserveAspectRatio="none">
+        <path d="M0,0 C320,50 720,10 1080,45 C1260,62 1380,25 1440,35 L1440,68 L0,68 Z" fill="#F6F1E1"/>
+        <path d="M0,0 C320,50 720,10 1080,45 C1260,62 1380,25 1440,35" stroke="url(#pagerLineGrad)" stroke-width="2.5" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- =========================================================================
+         10. PRICING & DEPLOYMENT TIERS
+         ========================================================================= -->
+    <section class="section" id="pricing" style="background: var(--bg-surface-soft);">
+      <div class="container">
+        <div class="section-heading-group">
+          <span class="section-tag"><span class="pulse-dot"></span> SIMPLE, TRANSPARENT PRICING</span>
+          <h2 class="section-title">Deployment Plans for <span class="gradient-text-warm">Every Community Scale</span></h2>
+          <p class="section-desc">
+            Zero hidden fees. Full hardware controller integration support, complimentary guard training, and 24/7 dedicated society concierge.
+          </p>
+        </div>
+
+        <!-- Annual / Monthly Toggle -->
+        <div class="pricing-cycle-wrapper">
+          <span style="font-size: 0.95rem; font-weight: 700; color: var(--text-ink);">Monthly</span>
+          <label class="pricing-switch">
+            <input type="checkbox" id="billingCycleToggle" checked>
+            <span class="pricing-slider"></span>
+          </label>
+          <span style="font-size: 0.95rem; font-weight: 700; color: var(--text-ink);">Annual Billing</span>
+          <span class="discount-tag">Save 20%</span>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Tier 1: Gated Villas -->
+          <div class="pricing-card tilt-card">
+            <h3 class="pricing-tier-name">Gated Community</h3>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">Ideal for boutique villa enclaves and standalone residential complexes up to 150 units.</p>
+
+            <div class="pricing-cost">
+              <span class="pricing-currency">₹</span>
+              <span class="pricing-val" data-monthly="18" data-annual="14">14</span>
+              <span class="pricing-unit">/ flat / mo</span>
+            </div>
+
+            <ul class="pricing-features-list">
+              <li><i data-lucide="check"></i> Resident iOS &amp; Android Apps</li>
+              <li><i data-lucide="check"></i> 1 Dedicated Guard Tablet License</li>
+              <li><i data-lucide="check"></i> 1-Tap Visitor Approvals &amp; Guest QR</li>
+              <li><i data-lucide="check"></i> Domestic Staff Attendance Ledger</li>
+              <li><i data-lucide="check"></i> Offline Edge Sync Support</li>
+            </ul>
+
+            <button class="btn btn-secondary open-audit-modal" style="width: 100%;">Deploy Gated Plan</button>
+          </div>
+
+          <!-- Tier 2: High-Rise Township (Featured) -->
+          <div class="pricing-card pricing-featured tilt-card">
+            <div class="pricing-badge-popular">MOST POPULAR TOWNSHIP CHOICE</div>
+            <h3 class="pricing-tier-name">High-Rise Township</h3>
+            <p style="font-size: 0.88rem; color: var(--text-body);">Engineered for multi-tower complexes, apartments, and gated societies with 2–6 gates.</p>
+
+            <div class="pricing-cost">
+              <span class="pricing-currency">₹</span>
+              <span class="pricing-val" data-monthly="28" data-annual="22" style="color: var(--orange-600);">22</span>
+              <span class="pricing-unit">/ flat / mo</span>
+            </div>
+
+            <ul class="pricing-features-list">
+              <li><i data-lucide="check"></i> <strong>Everything in Gated Community</strong></li>
+              <li><i data-lucide="check"></i> <strong>Optical ANPR Vehicle Recognition</strong></li>
+              <li><i data-lucide="check"></i> <strong>Physical Boom Barrier Integration</strong></li>
+              <li><i data-lucide="check"></i> Multi-Tower Granular Access Rules</li>
+              <li><i data-lucide="check"></i> AI Anomaly &amp; Loitering Sentinel</li>
+              <li><i data-lucide="check"></i> Intelligent Visitor Parking Allocator</li>
+              <li><i data-lucide="check"></i> Unified 1-Touch Emergency SOS Matrix</li>
+            </ul>
+
+            <button class="btn btn-primary open-audit-modal" style="width: 100%;">Deploy Township Plan</button>
+          </div>
+
+          <!-- Tier 3: Enterprise Smart City -->
+          <div class="pricing-card tilt-card">
+            <h3 class="pricing-tier-name">Smart City / Megapolis</h3>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">Custom enterprise solution for mega townships, mixed-use tech parks, and master builders.</p>
+
+            <div class="pricing-cost">
+              <span class="pricing-currency">Custom</span>
+              <span class="pricing-unit">Bespoke SLA Architecture</span>
+            </div>
+
+            <ul class="pricing-features-list">
+              <li><i data-lucide="check"></i> Unlimited Gates, Towers &amp; Terminals</li>
+              <li><i data-lucide="check"></i> Custom CCTV NVR / DVR Video Ingestion</li>
+              <li><i data-lucide="check"></i> Natural Language AI Security Assistant</li>
+              <li><i data-lucide="check"></i> ERP &amp; Society Accounting Integration</li>
+              <li><i data-lucide="check"></i> Dedicated On-Site Deployment Engineer</li>
+              <li><i data-lucide="check"></i> 99.99% Guaranteed Enterprise SLA</li>
+            </ul>
+
+            <button class="btn btn-secondary open-audit-modal" style="width: 100%;">Consult Enterprise Team</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION DIVIDER PAGER TRANSITION 8 -->
+    <div class="divider-wave-pager">
+      <svg viewBox="0 0 1440 68" preserveAspectRatio="none">
+        <path d="M0,0 C380,45 740,15 1100,50 C1280,65 1380,20 1440,30 L1440,68 L0,68 Z" fill="#EEE8D5"/>
+        <path d="M0,0 C380,45 740,15 1100,50 C1280,65 1380,20 1440,30" stroke="url(#pagerLineGrad)" stroke-width="2.5" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- =========================================================================
+         11. FAQ ACCORDION
+         ========================================================================= -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-heading-group">
+          <span class="section-tag"><span class="pulse-dot"></span> TECHNICAL &amp; OPERATIONAL FAQ</span>
+          <h2 class="section-title">Frequently Asked <span class="gradient-text-warm">Questions</span></h2>
+          <p class="section-desc">
+            Everything your RWA Management Committee, Security Head, and Society Treasurer need to know before upgrading.
+          </p>
+        </div>
+
+        <div class="faq-wrap">
+          <div class="faq-item active">
+            <button class="faq-question">
+              <span>What happens if the internet goes down at the main society gate?</span>
+              <i data-lucide="chevron-down" class="faq-chevron"></i>
+            </button>
+            <div class="faq-answer">
+              SafeSociety is engineered with an <strong>Offline-First Zero-Downtime Engine</strong>. Each guard tablet runs a lightweight, encrypted local SQLite database storing resident whitelists, pre-approved visitor passes, and authorized domestic staff schedules. Guards can verify visitors and command barriers offline. Once Wi-Fi or cellular reconnects, the system silently synchronizes all pending logs with the cloud.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Can SafeSociety connect with our existing boom barriers and RFID gates?</span>
+              <i data-lucide="chevron-down" class="faq-chevron"></i>
+            </button>
+            <div class="faq-answer">
+              Yes! SafeSociety utilizes an industrial IoT relay bridge that interfaces with 98% of existing mechanical boom barrier brands (including CAME, Magnetic Autocontrol, FAAC, Somfy, and local Indian controllers). We don't require societies to scrap functional hardware; our controller simply upgrades your gate to "Identify → Verify → Authorize → Open".
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How do we prevent delivery personnel from roaming across unauthorized towers?</span>
+              <i data-lucide="chevron-down" class="faq-chevron"></i>
+            </button>
+            <div class="faq-answer">
+              SafeSociety enforces <strong>Tower-Specific Access Routing</strong>. When a courier arrives for Flat 402 in Tower A, the digital entry pass is strictly bound to Tower A. Tower lobby scanners or intercom points in Tower B or Tower C will refuse entry. Furthermore, if a delivery agent stays on premises beyond 30 minutes, an automated loitering ping is sent to security personnel.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Is resident personal data, vehicle information, and visitor photo history secure?</span>
+              <i data-lucide="chevron-down" class="faq-chevron"></i>
+            </button>
+            <div class="faq-answer">
+              Data privacy is core to SafeSociety. We are strictly compliant with the Digital Personal Data Protection (DPDP) Act and GDPR standards. All phone numbers and personal resident identifiers are cryptographically masked from guards. Media is encrypted at rest using AES-256 GCM, and retention schedules automatically purge transient visitor footage after the society's mandated audit window.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How long does it take to onboard our residential society?</span>
+              <i data-lucide="chevron-down" class="faq-chevron"></i>
+            </button>
+            <div class="faq-answer">
+              A standard 500-unit township can be completely operational within <strong>48 to 72 hours</strong>. Our onboarding team provides an automated CSV bulk import for flat directories, installs the IoT boom barrier controller, and conducts multilingual, hands-on training sessions for your security guard staff.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         12. AUDIT CTA BANNER
+         ========================================================================= -->
+    <section class="section" style="padding-top: 30px; padding-bottom: 90px;">
+      <div class="container">
+        <div class="editorial-card tilt-card" style="padding: 54px 36px; text-align: center; background: linear-gradient(135deg, #FFF6F3 0%, #FFF0F4 100%); border-color: rgba(255, 90, 54, 0.25);">
+          <span class="section-tag"><span class="pulse-dot"></span> ZERO-RISK SOCIETY AUDIT</span>
+          <h2 style="font-size: clamp(2rem, 3.4vw, 2.7rem); margin-bottom: 14px; color: var(--text-ink);">
+            Ready to give your society the security it deserves?
+          </h2>
+          <p style="color: var(--text-body); max-width: 660px; margin: 0 auto 30px auto; font-size: 1.05rem;">
+            Schedule a complimentary, on-site gate security and boom barrier automation assessment with our senior township architects.
+          </p>
+          <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+            <button class="btn btn-primary open-audit-modal">
+              <i data-lucide="shield"></i> Request Free Society Security Audit
+            </button>
+            <a href="#simulator" class="btn btn-secondary">
+              <i data-lucide="play"></i> Test Gate Simulator Again
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       13. AUDIT BOOKING MODAL
+       ========================================================================= -->
+  <div class="modal-overlay" id="auditModal">
+    <div class="modal-window">
+      <button class="modal-close-btn" id="closeAuditModal" aria-label="Close Modal">
+        <i data-lucide="x" style="width: 22px; height: 22px;"></i>
+      </button>
+
+      <form id="auditBookingForm">
+        <h3 class="modal-title">Schedule Society Security Audit</h3>
+        <p class="modal-desc">
+          Our certified security engineers will evaluate your society gates, camera blindspots, and boom barrier automation readiness.
+        </p>
+
+        <div class="form-group">
+          <label class="form-label" for="auditSocietyName">Society / Township Name</label>
+          <input type="text" class="form-input" id="auditSocietyName" required placeholder="e.g. Azure Horizons Residency">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="form-group">
+            <label class="form-label" for="auditFlats">Total Flats / Units</label>
+            <input type="number" class="form-input" id="auditFlats" required placeholder="e.g. 450">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="auditGates">Number of Gates</label>
+            <input type="number" class="form-input" id="auditGates" required placeholder="e.g. 3">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="auditContactName">Your Name &amp; RWA Designation</label>
+          <input type="text" class="form-input" id="auditContactName" required placeholder="e.g. Rajiv Kapoor (RWA Secretary)">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="auditPhone">Phone / WhatsApp</label>
+          <input type="tel" class="form-input" id="auditPhone" required placeholder="+91 98765 43210">
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">
+          Confirm VIP Audit Booking
+        </button>
+      </form>
+
+      <!-- Success State -->
+      <div class="modal-success" id="modalSuccessState">
+        <div class="success-icon-box">
+          <i data-lucide="check" style="width: 32px; height: 32px;"></i>
+        </div>
+        <h3 style="font-size: 1.45rem; color: var(--text-ink); margin-bottom: 6px;">Audit Request Confirmed!</h3>
+        <p style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6; margin-bottom: 22px;">
+          Thank you! A SafeSociety Township Solutions Specialist will contact you within 2 hours to coordinate the on-site hardware walkthrough.
+        </p>
+        <button class="btn btn-secondary" onclick="document.getElementById('auditModal').classList.remove('active');">
+          Close Window
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Back to Top Button -->
+  <button class="back-to-top" id="backToTopBtn" aria-label="Scroll Back to Top">
+    <i data-lucide="arrow-up" style="width: 18px; height: 18px;"></i>
+  </button>
+
+  <!-- =========================================================================
+       14. WARM LUXURY FOOTER
+       ========================================================================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <div class="brand-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="m9 12 2 2 4-4"/>
+              </svg>
+            </div>
+            <div class="brand-text">Safe<span>Society</span></div>
+          </div>
+          <p>
+            The residential security operating system uniting residents, guards, vehicles, and physical gate automation into one effortless standard.
+          </p>
+          <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.78rem; color: var(--orange-600); font-weight: 700;">
+            "From the gate to the entire community."
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul class="footer-links">
+            <li><a href="#ecosystem">Resident App</a></li>
+            <li><a href="#ecosystem">Guard Terminal</a></li>
+            <li><a href="#ecosystem">RWA Command</a></li>
+            <li><a href="#simulator">Gate Simulator</a></li>
+            <li><a href="#architecture">ANPR Vehicle AI</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Capabilities</h4>
+          <ul class="footer-links">
+            <li><a href="#architecture">Boom Barrier Relay</a></li>
+            <li><a href="#architecture">Offline Edge Mesh</a></li>
+            <li><a href="#architecture">Tower Isolation</a></li>
+            <li><a href="#architecture">Unified SOS Hub</a></li>
+            <li><a href="#calculator">ROI Calculator</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>System Health</h4>
+          <div class="footer-status-box">
+            <div class="footer-status-pill">
+              <span class="nav-live-dot"></span> 100% OPERATIONAL
+            </div>
+            <div class="footer-status-desc">
+              All 42,800+ Gateways, Optical ANPR Nodes, and Cloud Edge Sync Instances Online.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 SafeSociety Technologies Inc. All rights reserved.</div>
+        <div style="display: flex; gap: 18px;">
+          <a href="#" style="color: var(--text-secondary); text-decoration: none;">Privacy Policy</a>
+          <a href="#" style="color: var(--text-secondary); text-decoration: none;">DPDP Compliance</a>
+          <a href="#" style="color: var(--text-secondary); text-decoration: none;">Terms of Service</a>
+          <a href="#" style="color: var(--text-secondary); text-decoration: none;">Security Whitepaper</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Native Scripts (NO LENIS - 100% Native Scrolling Physics) -->
+  <script src="scripts/audio.js"></script>
+  <script src="scripts/parallax-scroll.js"></script>
+  <script src="scripts/simulator.js"></script>
+  <script src="scripts/calculator.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>
