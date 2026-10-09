@@ -1,6 +1,7 @@
 /**
  * SafeSociety Society ROI & Stakeholder Impact Calculator
  * Dynamically computes operational time savings, visitor wait reductions, and cost efficiency
+ * (Audio Synthesizer calls removed)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -26,47 +27,30 @@ document.addEventListener('DOMContentLoaded', () => {
     if (flatsValDisplay) flatsValDisplay.textContent = flats.toLocaleString();
     if (gatesValDisplay) gatesValDisplay.textContent = gates;
 
-    // Derived calculations
-    // An average society has ~2.2 visitor/delivery events per flat per day
     const dailyEvents = Math.round(flats * 2.2);
-    // Manual register entry: ~1.5 mins per visitor vs SafeSociety ~8 secs
-    // Total hours saved by guards and residents per month:
     const monthlyEvents = dailyEvents * 30;
-    const minutesSavedMonthly = monthlyEvents * 1.35; // 1.35 mins saved per event
+    const minutesSavedMonthly = monthlyEvents * 1.35;
     const hoursSavedMonthly = Math.round(minutesSavedMonthly / 60);
 
-    // Annual RWA Financial Value (Eliminated paper logs, reduced guard overhead, unauthorized parking recovery, loss prevention)
     const annualSavingsINR = Math.round(flats * 2150 + gates * 85000);
     const annualSavingsUSD = Math.round(annualSavingsINR / 83);
-
-    // Estimated security anomalies caught before entry
     const anomaliesPrevented = Math.round(flats * 0.42 * gates);
 
-    if (metricHoursSaved) {
-      metricHoursSaved.textContent = `${hoursSavedMonthly.toLocaleString()} hrs/mo`;
-    }
-    if (metricWaitCut) {
-      metricWaitCut.textContent = '95.4%';
-    }
-    if (metricAnnualSavings) {
-      metricAnnualSavings.textContent = `$${annualSavingsUSD.toLocaleString()} / ₹${(annualSavingsINR / 100000).toFixed(1)}L`;
-    }
-    if (metricIncidentsPrevented) {
-      metricIncidentsPrevented.textContent = `${anomaliesPrevented.toLocaleString()} alerts/yr`;
-    }
+    if (metricHoursSaved) metricHoursSaved.textContent = `${hoursSavedMonthly.toLocaleString()} hrs/mo`;
+    if (metricWaitCut) metricWaitCut.textContent = '95.4%';
+    if (metricAnnualSavings) metricAnnualSavings.textContent = `$${annualSavingsUSD.toLocaleString()} / ₹${(annualSavingsINR / 100000).toFixed(1)}L`;
+    if (metricIncidentsPrevented) metricIncidentsPrevented.textContent = `${anomaliesPrevented.toLocaleString()} alerts/yr`;
   }
 
   if (flatsSlider) {
     flatsSlider.addEventListener('input', () => {
       updateCalculator();
-      if (window.soundEngine) window.soundEngine.hover();
     });
   }
 
   if (gatesSlider) {
     gatesSlider.addEventListener('input', () => {
       updateCalculator();
-      if (window.soundEngine) window.soundEngine.hover();
     });
   }
 
@@ -79,11 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
       this.classList.add('active');
       const targetEl = document.getElementById(`stakeholder-${targetRole}`);
       if (targetEl) targetEl.classList.add('active');
-
-      if (window.soundEngine) window.soundEngine.click();
     });
   });
 
-  // Initial calculation
   updateCalculator();
 });
